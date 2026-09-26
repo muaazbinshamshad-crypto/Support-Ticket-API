@@ -8,10 +8,6 @@ from sqlalchemy.orm import sessionmaker
 load_dotenv()
 
 
-# =========================
-# DATABASE CONFIGURATION
-# =========================
-
 DB_HOST = os.getenv("DB_HOST")
 DB_NAME = os.getenv("DB_NAME")
 DB_USER = os.getenv("DB_USER")
@@ -25,19 +21,11 @@ DATABASE_URL = (
 )
 
 
-# =========================
-# SQLALCHEMY ENGINE
-# =========================
-
 engine = create_engine(
     DATABASE_URL,
     pool_pre_ping=True
 )
 
-
-# =========================
-# DATABASE SESSION
-# =========================
 
 SessionLocal = sessionmaker(
     bind=engine,
@@ -46,14 +34,11 @@ SessionLocal = sessionmaker(
 )
 
 
-# =========================
-# DATABASE DEPENDENCY
-# =========================
-
 def get_db():
     db = SessionLocal()
 
     try:
         yield db
+
     finally:
         db.close()
